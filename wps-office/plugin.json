@@ -6,6 +6,7 @@
   "author": { "name": "WPS Open Platform" },
   "homepage": "https://open.wps.cn/documents/app-integration-dev/mcp-server/introduction",
   "repository": "https://github.com/Elliotwu-7/rakazo-plugins",
+  "logo": "assets/logo.svg",
   "license": "MIT",
   "keywords": ["wps", "office", "documents", "wps365"]
 }

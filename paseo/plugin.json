@@ -6,6 +6,7 @@
   "author": { "name": "Elliot Wu" },
   "homepage": "https://github.com/Elliotwu-7/paseo",
   "repository": "https://github.com/Elliotwu-7/rakazo-plugins",
+  "logo": "assets/logo.svg",
   "license": "MIT",
   "keywords": ["paseo", "agents", "remote-device", "workspace"]
 }
