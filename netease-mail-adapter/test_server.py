@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
+import http.client
+import json
 import os
+import threading
 import unittest
 
 os.environ.setdefault("MCP_HTTP_TOKEN", "x" * 64)
@@ -22,6 +25,36 @@ class AdapterTests(unittest.TestCase):
             {tool["name"] for tool in tools["result"]["tools"]},
             {"get_mail_status", "list_folders", "search_messages", "read_message", "send_email"},
         )
+
+    def test_unauthorized_keepalive_does_not_corrupt_next_request(self):
+        instance = server.Server(("127.0.0.1", 0), server.Handler)
+        thread = threading.Thread(target=instance.serve_forever, daemon=True)
+        thread.start()
+        connection = http.client.HTTPConnection("127.0.0.1", instance.server_port, timeout=5)
+        try:
+            body = json.dumps(
+                {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18"}}
+            )
+            connection.request("POST", "/mcp", body=body, headers={"Content-Type": "application/json"})
+            first = connection.getresponse()
+            first.read()
+            self.assertEqual(first.status, 401)
+
+            connection.request(
+                "POST",
+                "/mcp",
+                body=body,
+                headers={"Content-Type": "application/json", "Authorization": f"Bearer {server.HTTP_TOKEN}"},
+            )
+            second = connection.getresponse()
+            payload = json.loads(second.read())
+            self.assertEqual(second.status, 200)
+            self.assertEqual(payload["result"]["serverInfo"]["name"], "netease-mail")
+        finally:
+            connection.close()
+            instance.shutdown()
+            instance.server_close()
+            thread.join(timeout=5)
 
     def test_send_requires_confirmation(self):
         response = server.handle_request(

@@ -731,7 +731,7 @@ class Handler(BaseHTTPRequestHandler):
             except (BrokenPipeError, ConnectionResetError):
                 pass
 
-    def _json_body(self) -> Any:
+    def _read_body(self) -> bytes:
         try:
             length = int(self.headers.get("Content-Length", "0"))
         except ValueError as exc:
@@ -740,7 +740,10 @@ class Handler(BaseHTTPRequestHandler):
             raise ValueError("Request body is required")
         if length > MAX_BODY_BYTES:
             raise ValueError("Request body is too large")
-        raw = self.rfile.read(length)
+        return self.rfile.read(length)
+
+    @staticmethod
+    def _parse_json_body(raw: bytes) -> Any:
         try:
             return json.loads(raw.decode("utf-8"))
         except (UnicodeDecodeError, json.JSONDecodeError) as exc:
@@ -791,11 +794,19 @@ class Handler(BaseHTTPRequestHandler):
         if urlparse(self.path).path != MCP_PATH:
             self._send(404, encode_json({"ok": False, "error": "Not found"}))
             return
+        # Consume the bounded request body before an auth rejection. Otherwise
+        # the unread bytes corrupt the next request on an HTTP/1.1 keep-alive
+        # connection, which makes clients see an HTTP 501 from BaseHTTPRequestHandler.
+        try:
+            raw = self._read_body()
+        except ValueError as exc:
+            self._send(400, encode_json({"jsonrpc": "2.0", "id": None, "error": {"code": -32700, "message": str(exc)}}))
+            return
         if not self._authorized():
             self._send(401, encode_json({"ok": False, "error": "Invalid MCP HTTP credentials"}), extra_headers={"WWW-Authenticate": "Bearer"})
             return
         try:
-            payload = self._json_body()
+            payload = self._parse_json_body(raw)
         except ValueError as exc:
             self._send(400, encode_json({"jsonrpc": "2.0", "id": None, "error": {"code": -32700, "message": str(exc)}}))
             return
