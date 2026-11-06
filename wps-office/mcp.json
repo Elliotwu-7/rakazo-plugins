@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.1.0/mcp.schema.json",
+  "mcpServers": {
+    "wps-cloud-docs": {
+      "type": "streamable-http",
+      "url": "https://openapi.wps.cn/mcp/v2/kso-yundoc/message",
+      "headers": { "Authorization": "" }
+    }
+  }
+}

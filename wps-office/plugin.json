@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+  "name": "wps-office",
+  "version": "1.0.0",
+  "description": "Search and extract WPS 365 cloud documents through WPS Open Platform's official MCP service.",
+  "author": { "name": "WPS Open Platform" },
+  "homepage": "https://open.wps.cn/documents/app-integration-dev/mcp-server/introduction",
+  "repository": "https://github.com/Elliotwu-7/rakazo-plugins",
+  "license": "MIT",
+  "keywords": ["wps", "office", "documents", "wps365"]
+}

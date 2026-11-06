@@ -1,0 +1,29 @@
+[Unit]
+Description=NetEase Mail MCP adapter
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=netease-mail
+Group=netease-mail
+WorkingDirectory=/opt/netease-mail-adapter
+EnvironmentFile=/etc/netease-mail-adapter/mail-mcp.env
+ExecStart=/usr/bin/python3 /opt/netease-mail-adapter/server.py
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
+  "name": "lynkco-wxbot",
+  "version": "1.0.0",
+  "description": "Operate the tokenized Windows lan_bridge used by Lynkco WeChat bot workflows when the bridge host is online.",
+  "author": { "name": "Elliot Wu" },
+  "homepage": "https://github.com/Elliotwu-7/lynkco-wxbot",
+  "repository": "https://github.com/Elliotwu-7/rakazo-plugins",
+  "license": "MIT",
+  "keywords": ["wechat", "windows", "lan-bridge", "astrbot"]
+}
