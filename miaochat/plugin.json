@@ -1,4 +1,5 @@
 {
+  "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
   "name": "miaochat",
   "description": "Read and send Miaochat messages through the tokenized Windows lan_bridge.",
   "homepage": "https://github.com/Elliotwu-7/miaochat",

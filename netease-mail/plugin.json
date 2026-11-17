@@ -1,4 +1,5 @@
 {
+  "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
   "name": "netease-mail",
   "description": "Search, read and send NetEase Mail through the self-hosted authenticated IMAP/SMTP MCP adapter.",
   "logo": "assets/logo.svg",
