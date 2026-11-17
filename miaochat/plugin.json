@@ -1,12 +1,14 @@
 {
-  "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
   "name": "miaochat",
-  "version": "1.0.0",
   "description": "Read and send Miaochat messages through the tokenized Windows lan_bridge.",
-  "author": { "name": "Elliot Wu" },
   "homepage": "https://github.com/Elliotwu-7/miaochat",
-  "repository": "https://github.com/Elliotwu-7/rakazo-plugins",
   "logo": "assets/logo.svg",
   "license": "MIT",
-  "keywords": ["miaochat", "wechat", "lan-bridge", "macos"]
+  "keywords": [
+    "miaochat",
+    "wechat",
+    "lan-bridge",
+    "macos"
+  ],
+  "category": "communication"
 }

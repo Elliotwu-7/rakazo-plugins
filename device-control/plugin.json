@@ -1,12 +1,6 @@
 {
-  "$schema": "https://agent-plugins.org/schemas/1.1.0/plugin.schema.json",
   "name": "device-control",
-  "version": "1.0.1",
   "description": "Control connected Mac, Linux and Windows devices through an authenticated MCP router.",
-  "author": {
-    "name": "Elliot Wu"
-  },
-  "repository": "https://github.com/Elliotwu-7/rakazo-plugins",
   "logo": "assets/logo.svg",
   "license": "MIT",
   "keywords": [
@@ -14,5 +8,6 @@
     "remote-control",
     "paseo",
     "mcp"
-  ]
+  ],
+  "category": "ops"
 }
