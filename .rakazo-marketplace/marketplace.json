@@ -1,0 +1,49 @@
+{
+  "plugins": [
+    {
+      "name": "device-control",
+      "source": "./device-control",
+      "category": "ops"
+    },
+    {
+      "name": "paseo",
+      "source": "./paseo",
+      "category": "productivity"
+    },
+    {
+      "name": "github",
+      "source": "./github",
+      "category": "development"
+    },
+    {
+      "name": "wps-office",
+      "source": "./wps-office",
+      "category": "productivity"
+    },
+    {
+      "name": "netease-mail",
+      "source": "./netease-mail",
+      "category": "communication"
+    },
+    {
+      "name": "artex-god",
+      "source": "./artex-god",
+      "category": "ops"
+    },
+    {
+      "name": "lynkco-wxbot",
+      "source": "./lynkco-wxbot",
+      "category": "communication"
+    },
+    {
+      "name": "miaochat",
+      "source": "./miaochat",
+      "category": "communication"
+    },
+    {
+      "name": "rakazo-native-computer",
+      "source": "./rakazo-native-computer",
+      "category": "productivity"
+    }
+  ]
+}
