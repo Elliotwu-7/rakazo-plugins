@@ -9,18 +9,19 @@ description: 使用 Rakazo 原生电脑能力操作用户已配对的 Windows �
 
 ## 设备选择
 
-1. 任务涉及用户自己的电脑时，先调用 `list_user_devices`。
-2. 使用返回结果中的准确 `deviceId`；后续同一任务的每个 `user_computer_shell`、`user_computer_observe`、`user_computer_act` 都传同一个 `device`。
-3. 用户指定了电脑时，只操作那台。它离线就报告离线，不切换到其他设备。
-4. 用户没有指定且只有一台在线时可以直接使用；多台在线时先问用户选哪一台。
-5. 这些工具只覆盖 Rakazo Desktop App 配对的用户电脑，不代表服务器、VPS 或旧 Device Control 设备清单。
+1. 以本轮实际提供的工具及参数定义为准。当前核验版本有 `user_computer_shell`、`user_computer_observe`、`user_computer_act`，没有设备枚举工具，这三个工具也没有 `device` 或 `deviceId` 参数；不要编造调用。
+2. 当前版本由后台选择当前账户最近连接的在线电脑，每次调用可能重新选择。用户提到的设备名称不会自动改变路由，不能承诺固定设备。
+3. 用户指定了电脑时，只操作那台。先用跨平台只读命令 `hostname` 核对目标；不匹配或无法确认就停止修改，说明卡点，不切换到其他电脑。
+4. 多台电脑连接且接口不能明确选机时，请用户在非目标电脑上关闭 **Let bots use this computer**，只保留目标连接后再核对；不要靠反复重连竞争路由。仅有一次 hostname 成功不能证明后续调用始终在同一台。
+5. 工具未提供或返回未连接时，说明需要在目标 Rakazo Desktop App 登录对应账户、打开该开关并保持应用运行；不要把云端 Linux computer 当成用户电脑。
+6. 原生能力受账户归属、会话来源与审批限制。共享空间中的其他用户、定时任务或外部消息不一定能使用它；全局规则不等于跨账户设备权限。
 
 ## 选择工具
 
 - 需要命令、进程、环境、网络或本机文件：使用 `user_computer_shell`。`cwd` 默认是用户主目录，并且必须留在主目录内。
-- 需要看桌面或应用：先用 `user_computer_observe`，传应用名称和同一个 `device`。
+- 需要看桌面或应用：先用 `user_computer_observe`，传 `app`，必要时用 `query` 缩小观察结果。
 - 需要点击、输入、快捷键、菜单或滚动：使用 `user_computer_act`。先观察，再根据最新观察结果中的 `[N]` 元素操作；只有没有可访问元素时才使用截图像素坐标。
-- Windows 命令使用 PowerShell 语法；macOS 命令使用 zsh 语法。先看 `platform` 再决定命令，不要把一套 shell 语法硬套到另一平台。
+- Windows 命令使用 PowerShell 语法；macOS 按实际 shell 选择兼容语法，不假定一定是 zsh。先确认平台，不要把一套 shell 语法硬套到另一平台。
 
 ## 图形界面操作规则
 
